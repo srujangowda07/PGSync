@@ -33,7 +33,7 @@ const Rent = () => {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto space-y-8 animate-in slide-in-from-left-6 duration-700">
+    <div className="p-4 md:p-6 max-w-6xl mx-auto space-y-6 md:space-y-8 animate-in slide-in-from-left-6 duration-700">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-3xl font-black text-slate-800 tracking-tight">Billing & Collections</h1>
@@ -47,8 +47,9 @@ const Rent = () => {
         </div>
       </div>
 
-      <div className="bg-white rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden">
-        <table className="w-full text-left">
+      <div className="bg-white rounded-[1.5rem] md:rounded-[2rem] border border-slate-200 shadow-sm overflow-hidden">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left min-w-[700px]">
           <thead className="bg-slate-50 border-b border-slate-200">
             <tr>
               <th className="px-8 py-5 text-[10px] font-black text-slate-400 uppercase tracking-widest">Resident / Room</th>
@@ -128,7 +129,8 @@ const Rent = () => {
               </tr>
             )}
           </tbody>
-        </table>
+          </table>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

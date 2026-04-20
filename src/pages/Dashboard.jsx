@@ -38,7 +38,7 @@ const Dashboard = () => {
   ];
 
   return (
-    <div className="p-8 max-w-7xl mx-auto space-y-10 animate-in fade-in duration-700">
+    <div className="p-4 md:p-8 max-w-7xl mx-auto space-y-6 md:space-y-10 animate-in fade-in duration-700">
       <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
         <div>
           <h1 className="text-4xl font-black text-slate-800 tracking-tight leading-none mb-2">Pro Dashboard</h1>
@@ -62,7 +62,7 @@ const Dashboard = () => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="lg:col-span-2 bg-slate-900 text-white rounded-[3rem] p-12 shadow-2xl relative overflow-hidden">
+        <div className="lg:col-span-2 bg-slate-900 text-white rounded-[2rem] md:rounded-[3rem] p-6 md:p-12 shadow-2xl relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-3xl"></div>
           <div className="flex items-center gap-4 mb-10">
              <div className="w-2 h-2 bg-blue-500 rounded-full animate-ping"></div>
@@ -78,8 +78,8 @@ const Dashboard = () => {
           </div>
         </div>
 
-        <div className="space-y-8">
-          <div className="bg-blue-600 text-white p-10 rounded-[2.5rem] shadow-xl relative overflow-hidden group">
+        <div className="space-y-6 md:space-y-8">
+          <div className="bg-blue-600 text-white p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] shadow-xl relative overflow-hidden group">
              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
              <h3 className="text-xl font-black mb-2 relative z-10">Pro Analytics</h3>
              <p className="text-blue-100 text-sm leading-relaxed mb-6 relative z-10">
@@ -90,7 +90,7 @@ const Dashboard = () => {
              </div>
           </div>
 
-          <div className="bg-slate-50 p-10 rounded-[2.5rem] border border-slate-200">
+          <div className="bg-slate-50 p-6 md:p-10 rounded-[2rem] md:rounded-[2.5rem] border border-slate-200">
              <h3 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-6 border-b border-slate-200 pb-2">Quick Distribution</h3>
              <div className="space-y-4">
                {data.blocks.map(b => {

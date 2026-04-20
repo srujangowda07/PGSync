@@ -67,7 +67,7 @@ const Residents = () => {
   };
 
   return (
-    <div className="p-6 max-w-6xl mx-auto space-y-8 animate-in slide-in-from-bottom-6 duration-700">
+    <div className="p-4 md:p-6 max-w-6xl mx-auto space-y-6 md:space-y-8 animate-in slide-in-from-bottom-6 duration-700">
       <div className="flex justify-between items-center">
         <div>
           <h1 className="text-3xl font-black text-slate-800 tracking-tight">Resident Records</h1>
@@ -77,7 +77,7 @@ const Residents = () => {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Registration Form */}
-        <div className="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm h-fit sticky top-24">
+        <div className="bg-white p-6 md:p-8 rounded-3xl border border-slate-200 shadow-sm h-fit sticky top-24">
           <h2 className="text-xl font-bold mb-6 text-slate-800 flex items-center gap-2">
              <span className="w-2 h-6 bg-blue-600 rounded-full"></span>
              Direct Enrollment
