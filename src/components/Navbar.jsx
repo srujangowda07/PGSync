@@ -1,8 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { Link, useLocation } from "react-router-dom";
+import { getCurrentUser, logout } from "../utils/storage";
 
-const Navbar = () => {
+const Navbar = ({ onLogout }) => {
   const location = useLocation();
+  const user = getCurrentUser();
   const [showPropertySwitch, setShowPropertySwitch] = useState(false);
   const [showMoreMenu, setShowMoreMenu] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -52,6 +54,11 @@ const Navbar = () => {
 
   const allLinks = [...coreLinks, ...utilityLinks];
 
+  const handleLogoutClick = () => {
+    logout();
+    onLogout();
+  };
+
   return (
     <nav className="bg-white border-b border-slate-200 sticky top-0 z-[60] h-20">
       <div className="max-w-7xl mx-auto h-full px-4 md:px-6 flex items-center justify-between gap-2 lg:gap-4">
@@ -62,8 +69,7 @@ const Navbar = () => {
             <div className="w-10 h-10 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-100">
                <span className="text-white font-black text-xl">PG</span>
             </div>
-            {/* Intelligent Brand Visibility */}
-            <span className="text-2xl font-black text-slate-800 tracking-tight hidden 2xl:block">Sync <span className="text-blue-600">Pro</span></span>
+            <span className="text-2xl font-black text-slate-800 tracking-tight hidden 2xl:block italic font-black">Sync Pro</span>
           </Link>
 
           <div className="relative" ref={switchRef}>
@@ -90,20 +96,12 @@ const Navbar = () => {
                          <span className="text-[8px] font-black uppercase text-slate-400 bg-slate-100 px-2 py-0.5 rounded-lg border border-slate-200">Coming Soon</span>
                       </div>
                    </div>
-                   <div className="mt-2 pt-2 border-t border-slate-100">
-                      <Link 
-                        to="/multi-site-soon"
-                        className="block w-full py-3 bg-slate-900 text-white text-center rounded-xl text-[10px] font-black uppercase tracking-widest hover:bg-slate-800 transition-all"
-                      >
-                        Add New Property
-                      </Link>
-                   </div>
                 </div>
              )}
           </div>
         </div>
 
-        {/* Desktop Navigation: Split Core & More */}
+        {/* Desktop Navigation */}
         <div className="hidden lg:flex items-center gap-1 bg-slate-50 p-1 rounded-2xl border border-slate-200/60 transition-all">
           {coreLinks.map((link) => (
             <Link
@@ -119,12 +117,11 @@ const Navbar = () => {
             </Link>
           ))}
           
-          {/* "More" Utilities Dropdown */}
           <div className="relative" ref={moreRef}>
             <button
                onClick={() => setShowMoreMenu(!showMoreMenu)}
                className={`px-3 xl:px-4 py-2.5 rounded-xl text-[10px] font-black uppercase tracking-widest transition-all flex items-center gap-2 ${
-                 showMoreMenu ? "bg-white text-blue-600 shadow-sm border border-slate-100" : "text-slate-500 hove:text-slate-900"
+                 showMoreMenu ? "bg-white text-blue-600 shadow-sm border border-slate-100" : "text-slate-500 hover:text-slate-900"
                }`}
             >
                More
@@ -156,18 +153,19 @@ const Navbar = () => {
         {/* Right Actions */}
         <div className="flex items-center gap-2 md:gap-4 shrink-0">
            <div className="hidden xl:flex flex-col items-end border-r border-slate-100 pr-4">
-              <p className="text-[10px] font-black uppercase tracking-widest text-slate-800 leading-none mb-1">Admin</p>
-              <div className="flex items-center gap-2">
-                 <span className="w-1.5 h-1.5 bg-blue-600 rounded-full"></span>
-                 <p className="text-[9px] font-bold text-blue-600 uppercase tracking-tighter leading-none">Coming Soon</p>
-              </div>
+              <p className="text-[10px] font-black uppercase tracking-widest text-slate-800 leading-none mb-1 truncate max-w-[100px]">{user?.username || 'Admin'}</p>
+              <button 
+                onClick={handleLogoutClick}
+                className="text-[9px] font-black uppercase text-rose-600 hover:underline tracking-tighter leading-none"
+              >
+                Sign Out
+              </button>
            </div>
 
-           <div className="w-10 h-10 md:w-11 md:h-11 bg-slate-900 rounded-xl md:rounded-2xl flex items-center justify-center text-white text-xs md:text-sm font-black shadow-lg shadow-slate-200 border-2 border-white ring-1 ring-slate-100">
-              AD
+           <div className="w-10 h-10 md:w-11 md:h-11 bg-slate-900 rounded-xl md:rounded-2xl flex items-center justify-center text-white text-xs md:text-sm font-black shadow-lg shadow-slate-200 border-2 border-white ring-1 ring-slate-100 uppercase">
+              {user?.username?.charAt(0) || 'A'}
            </div>
 
-           {/* Mobile Menu Toggle (lg:hidden) */}
            <button 
              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
              className="lg:hidden w-10 h-10 flex items-center justify-center bg-slate-50 rounded-xl border border-slate-200/60 text-slate-600 hover:bg-slate-100 transition-all"
@@ -184,7 +182,7 @@ const Navbar = () => {
            </button>
         </div>
 
-        {/* Mobile Menu Overlay */}
+        {/* Mobile Menu */}
         {isMobileMenuOpen && (
            <div className="lg:hidden absolute top-full left-0 w-full bg-white border-b border-slate-200 shadow-xl z-50 animate-in slide-in-from-top-4 duration-300" ref={menuRef}>
               <div className="p-4 grid grid-cols-2 sm:grid-cols-3 gap-2">
@@ -201,19 +199,15 @@ const Navbar = () => {
                       {link.label}
                     </Link>
                  ))}
-              </div>
-              <div className="p-4 pt-0">
-                 <div className="bg-slate-900 p-4 rounded-2xl flex items-center justify-between">
-                    <div>
-                       <p className="text-[8px] font-black uppercase tracking-widest text-slate-500 mb-1 leading-none">Account</p>
-                       <p className="text-xs font-bold text-white">Administrator</p>
-                    </div>
-                    <span className="text-[8px] font-black uppercase text-blue-400 border border-blue-500/30 px-2 py-1 rounded-lg">Pro Edition</span>
-                 </div>
+                 <button 
+                    onClick={handleLogoutClick}
+                    className="px-4 py-4 rounded-xl text-[9px] font-black uppercase tracking-[0.2em] transition-all flex items-center justify-center border text-center bg-rose-50 text-rose-600 border-rose-100"
+                 >
+                    Sign Out
+                 </button>
               </div>
            </div>
         )}
-
       </div>
     </nav>
   );
